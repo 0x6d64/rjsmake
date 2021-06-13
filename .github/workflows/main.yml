@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+#      - master
+#      - feature/**
+  pull_request:
+    branches:
+#      - master
+#      - feature/**
+  workflow_dispatch:    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
+
+    - name: call makefile
+      run: make
+
+    - name: upload
+      uses: actions/upload-artifact@v1
+      with:
+        name: HTML
+        path: |
+          index.html
+          reveal.js/
+          css/
