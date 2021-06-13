@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+#      - master
+#      - feature/**
+  pull_request:
+    branches:
+#      - master
+#      - feature/**
+  workflow_dispatch:    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
+
+    - name: install pandoc
+      run: sudo apt-get install pandoc
+
+    - name: prepare output dir
+      run: 'mkdir html'
+
+    - name: call makefile
+      run: |
+        ls -l
+        make
+        ls -l
+        cp ./index.html html/
+        cp -r ./reveal.js/ html/
+        cp -r ./css/ html/
+
+    - name: upload
+      uses: actions/upload-artifact@v1
+      with:
+        name: HTML
+        path: html/
