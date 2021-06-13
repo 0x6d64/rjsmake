@@ -19,14 +19,23 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v2
 
+    - name: install pandoc
+      run: sudo apt-get install pandoc
+
+    - name: prepare output dir
+      run: 'mkdir html'
+
     - name: call makefile
-      run: make
+      run: |
+        ls -l
+        make
+        ls -l
+        cp ./index.html html/
+        cp -r ./reveal.js/ html/
+        cp -r ./css/ html/
 
     - name: upload
       uses: actions/upload-artifact@v1
       with:
         name: HTML
-        path: |
-          index.html
-          reveal.js/
-          css/
+        path: html/
