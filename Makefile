@@ -1,16 +1,30 @@
-
-.PHONY: clean publish
+.PHONY: clean publish rebuild
 
 all: reveal.js/index.html index.html
+
+# Parameters defining the look of prsentation
+# possible values: beige, black, blood, league, moon,
+# night, serif, simple, sky, solarized, white
+REVEALJS_THEME := 'moon'
+# possible values: none, fade, slide, convex, concave, zoom
+REVEALJS_TRANSITION := 'slide'
+
+rebuild: clean index.html
+	echo "rebuilding"
 
 # Make the index.html from index.md.
 # --incremental makes lists into revealjs fragments
 index.html: index.md
 	pandoc -t revealjs --template=templates/default.revealjs \
-	--standalone --section-divs --variable theme="league" \
-	--variable transition="convex" --incremental \
-	--no-highlight --variable hlss=zenburn \
-        --css=css/custom.css \
+	--standalone \
+	--section-divs \
+	--variable theme=$(REVEALJS_THEME) \
+	--variable slideNumber="true" \
+	--variable transition=$(REVEALJS_TRANSITION) \
+	--incremental \
+	--no-highlight \
+	--variable hlss=zenburn \
+	--css=css/custom.css \
 	index.md -o index.html
 
 # RevealJS setup
