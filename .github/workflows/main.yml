@@ -2,14 +2,7 @@ name: CI
 
 on:
   push:
-    branches:
-#      - master
-#      - feature/**
-  pull_request:
-    branches:
-#      - master
-#      - feature/**
-  workflow_dispatch:    
+  workflow_dispatch:
 
 jobs:
   build:
@@ -39,3 +32,11 @@ jobs:
       with:
         name: HTML
         path: html/
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.4
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master'}}
+      with:
+        branch: gh-pages
+        folder: html
+
