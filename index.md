@@ -1,3 +1,8 @@
 # Title
 
-Your content
+![just a kitten](img/kitten.jpg)
+
+::: notes
+speaker notes here...
+:::
+
