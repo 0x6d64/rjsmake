@@ -26,6 +26,9 @@ jobs:
         cp ./index.html html/
         cp -r ./reveal.js/ html/
         cp -r ./css/ html/
+        if [ -d "./img" ]; then cp -r ./img/ html/; fi
+        if [ -d "./image" ]; then cp -r ./image/ html/; fi
+        if [ -d "./images" ]; then cp -r ./images/ html/; fi
 
     - name: upload
       uses: actions/upload-artifact@v1
